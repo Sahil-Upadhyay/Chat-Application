@@ -86,7 +86,10 @@ export const logout = (req,res) => {
 export const getOtherUsers = async (req, res) => {
     try {
         const loggedInUserId = req.id;
-        const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }), { password: 0 } ;
+        const otherUsers = await User.find(
+        { _id: { $ne: loggedInUserId } }, // Exclude the logged-in user's ID
+        { password: 0 } 
+      );
         return res.status(200).json(otherUsers);
     } catch (error) {
         console.log(error);
